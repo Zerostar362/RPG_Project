@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Code\Models\" />
+    <Folder Include="GameData\Data\Custom\Characters\" />
+    <Folder Include="GameData\Data\Custom\Classes\" />
+    <Folder Include="GameData\Data\Custom\Items\" />
+    <Folder Include="GameData\Data\Custom\Locations\" />
+    <Folder Include="GameData\Data\Custom\Monsters\" />
+    <Folder Include="GameData\Data\Custom\Player\" />
+    <Folder Include="GameData\Data\Custom\Quests\" />
+    <Folder Include="GameData\Data\Custom\World\" />
+    <Folder Include="GameData\Data\INIT\Characters\" />
+    <Folder Include="GameData\Data\INIT\Items\" />
+    <Folder Include="GameData\Data\INIT\Monsters\" />
+    <Folder Include="GameData\Data\INIT\Locations\" />
+    <Folder Include="GameData\Data\INIT\World\" />
+    <Folder Include="GameData\Data\INIT\Quests\" />
+    <Folder Include="GameData\Data\INIT\Player\" />
+    <Folder Include="Pages\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.1" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.115.5" />
+  </ItemGroup>
+
+</Project>

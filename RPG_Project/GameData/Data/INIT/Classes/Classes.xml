@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ClassTypes>
+	<Class>
+	  <Name>Warrior</Name>
+	  <Description>Just a guy with a hammer</Description>
+	</Class>
+	<Class>
+		<Name>Mage</Name>
+		<Description>This old pal can do more</Description>
+	</Class>
+	<Class>
+		<Name>Archer</Name>
+		<Description>Walks and shoots</Description>
+	</Class>
+</ClassTypes> 
