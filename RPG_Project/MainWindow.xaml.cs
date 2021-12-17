@@ -25,7 +25,7 @@ namespace RPG_Project
     {
 
         
-        public void CreateDatabaseAndTable()
+        /*public void CreateDatabaseAndTable()
         {
             SQLiteConnection con;
             SQLiteCommand cmd;
@@ -51,7 +51,7 @@ namespace RPG_Project
             {
                 con = new SQLiteConnection("Data Source=MyDatabase.sqlite;Version=3;");
             }
-        }
+        }*/
 
         public MainWindow()
         {
