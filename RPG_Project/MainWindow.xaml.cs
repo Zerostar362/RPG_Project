@@ -12,9 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Windows;
-using System.Data.SQLite;
 using System.IO;
+using System.Data.SqlClient;
 
 namespace RPG_Project
 {
@@ -23,40 +22,20 @@ namespace RPG_Project
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        
-        /*public void CreateDatabaseAndTable()
-        {
-            SQLiteConnection con;
-            SQLiteCommand cmd;
-            SQLiteDataReader dr;
-
-            if (!File.Exists("MyDatabase.sqlite"))
-            {
-                SQLiteConnection.CreateFile("MyDatabase.sqlite");
-
-                string sql = @"CREATE TABLE Student(
-                               ID INTEGER PRIMARY KEY AUTOINCREMENT ,
-                               FirstName           TEXT      NOT NULL,
-                               LastName            TEXT       NOT NULL
-                            );";
-                con = new SQLiteConnection("Data Source=MyDatabase.sqlite;Version=3;");
-                con.Open();
-                cmd = new SQLiteCommand(sql, con);
-                cmd.ExecuteNonQuery();
-                con.Close();
-
-            }
-            else
-            {
-                con = new SQLiteConnection("Data Source=MyDatabase.sqlite;Version=3;");
-            }
-        }*/
-
         public MainWindow()
-        {
-            CreateDatabaseAndTable();
+        { 
             InitializeComponent();
+
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Adam\Source\Repos\Zerostar362\RPG_Project\RPG_Project\GameData\GameData.mdf;Integrated Security=True");
+            SqlCommand cmd = new SqlCommand("Select * From World", con);
+            con.Open();
+            SqlDataReader rd = cmd.ExecuteReader();
+            while(rd.Read() == true)
+            {
+                midTextBlock.Text = rd.GetString(1) + midTextBlock.Text;
+            }
+            con.Close();
+            rd.Close();
         }
 
         private void OnClick_ExitButton(object sender, RoutedEventArgs e) 

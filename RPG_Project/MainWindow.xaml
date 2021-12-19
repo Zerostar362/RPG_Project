@@ -51,6 +51,11 @@
                 Click="OnClick_ExitButton"
                 />
         </StackPanel>
+        <TextBlock
+            x:Name="midTextBlock"
+            Grid.Column="2"
+            Grid.Row="1"
+            />
         <!-- support panel-->
         <StackPanel
             Grid.Row="1"
