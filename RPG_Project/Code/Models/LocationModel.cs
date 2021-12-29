@@ -11,5 +11,7 @@ namespace RPG_Project.Code.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int WorldID { get; set; }
+        public int CoordinateX { get; set; }
+        public int CoordinateY { get; set; }
     }
 }

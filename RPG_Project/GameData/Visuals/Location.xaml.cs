@@ -39,12 +39,12 @@ namespace RPG_Project.GameData.Visuals
             foreach (LocationModel model in list)
             {
                 Button button = new Button();
-                button.Content = model.name;
-                button.Name = model.name;
-                button.Click =
+                button.Content = model.Name;
+                button.Name = model.Name;
+               //button.Click =
 
-                Grid.SetColumn(button, model.CoordianteY);
-                Grid.SetRow(button, model.CoordianteX);
+                Grid.SetColumn(button, model.CoordinateY);
+                Grid.SetRow(button, model.CoordinateX);
 
                 Grid.Children.Add(button);
             } 
