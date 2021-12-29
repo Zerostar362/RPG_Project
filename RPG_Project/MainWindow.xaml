@@ -34,6 +34,11 @@
                 Margin="0,5"
                 />
             <Button
+                Content="World"
+                Margin="0,5"
+                Click="OpenWorldGrid"
+                />
+            <Button
                 Content="MyCharacter"
                 Margin="0,5"
                 />
@@ -70,6 +75,7 @@
         <Frame
             Grid.Row="1"
             Grid.Column="2"
+            x:Name="MainFrame"
             >
             
         </Frame>

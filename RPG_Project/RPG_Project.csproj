@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Code\Models\" />
     <Folder Include="GameData\Data\Custom\Characters\" />
     <Folder Include="GameData\Data\Custom\Classes\" />
     <Folder Include="GameData\Data\Custom\Items\" />

@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using System.Data.SqlClient;
+using RPG_Project.GameData.Visuals;
 
 namespace RPG_Project
 {
@@ -23,19 +24,9 @@ namespace RPG_Project
     public partial class MainWindow : Window
     {
         public MainWindow()
-        { 
+        {
             InitializeComponent();
 
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Adam\Source\Repos\Zerostar362\RPG_Project\RPG_Project\GameData\GameData.mdf;Integrated Security=True");
-            SqlCommand cmd = new SqlCommand("Select * From World", con);
-            con.Open();
-            SqlDataReader rd = cmd.ExecuteReader();
-            while(rd.Read() == true)
-            {
-                midTextBlock.Text = rd.GetString(1) + midTextBlock.Text;
-            }
-            con.Close();
-            rd.Close();
         }
 
         private void OnClick_ExitButton(object sender, RoutedEventArgs e) 
@@ -47,6 +38,11 @@ namespace RPG_Project
         {
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
+        }
+
+        private void OpenWorldGrid(object sender, RoutedEventArgs e) 
+        {
+            MainFrame.Navigate(new WorldMap(MainFrame));
         }
     }
 }
