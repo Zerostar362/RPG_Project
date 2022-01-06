@@ -16,6 +16,7 @@ namespace RPG_Project.Code.Models
         public int Level { get; set; }
         public int EXP { get; set; }
         public int HP { get; set; }
+        public int Endurance { get; set; }
         public int Intelligence { get; set; }
         public int Strength { get; set; }
         public int Dexterity { get; set; }
@@ -25,5 +26,10 @@ namespace RPG_Project.Code.Models
         public int Legs { get; set; }
         public int Boots { get; set; }
         public int Weapon { get; set; }
+
+        public void getClassID() 
+        {
+
+        }
     }
 }

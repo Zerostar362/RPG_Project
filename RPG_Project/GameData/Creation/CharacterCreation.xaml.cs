@@ -32,11 +32,23 @@ namespace RPG_Project.GameData.Creation
         {
             if(NameBox.Text != "" && ComboBox.Text != "Choose your class") 
             {
-                int x;
                 CharacterModel characterModel = new CharacterModel();
                 //should be done in multithread to speed things up Task.Run(()=> {});
-                characterModel.name = NameBox.Text.Trim();
-                Task.Run(() => { characterModel.ClassID = { }; }); 
+                Task.Run(() => 
+                { 
+                    characterModel.name = NameBox.Text.Trim();
+                    SQLController sql = new SQLController();
+                    characterModel.ClassID = sql.queryClass(ComboBox.Text);
+                    //default new character values-------------------------------
+                    characterModel.Money = 10;
+                    characterModel.Level = 1;
+                    characterModel.EXP = 0;
+                    characterModel.HP = 100;
+                    //-----------------------------------------------------------
+                    //only for test purposes ------------------------------------
+                    characterModel.PlayerID = 1;
+                    //-----------------------------------------------------------
+                }); 
                 CurrentSession.mainFrame.Navigate(new AttributeSetUp(characterModel));
             }
             else 

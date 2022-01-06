@@ -13,6 +13,7 @@ namespace RPG_Project.Code.Models
         public int ItemType { get; set; }
         public int AvgDMG { get; set; }
         public int dmgRangePercentage { get; set; }
+        public int Endurance { get; set; }
         public int Strength { get; set; }
         public int Intelligence { get; set; }
         public int Dexterity { get; set; }

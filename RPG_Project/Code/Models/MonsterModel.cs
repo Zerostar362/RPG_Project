@@ -14,9 +14,11 @@ namespace RPG_Project.Code.Models
         public int SpawnLocation1 { get; set; }
         public int SpawnLocation2 { get; set; }
         public int SpawnLocation3 { get; set; }
+        public int Endurance { get; set; }
         public int Strength { get; set; }
         public int Intelligence { get; set; }
         public int Dexterity { get; set; }
         public int Experience { get; set; }
+        public int WorldSpawn { get; set; }
     }
 }
