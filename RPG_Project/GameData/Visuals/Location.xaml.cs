@@ -23,11 +23,49 @@ namespace RPG_Project.GameData.Visuals
     /// </summary>
     public partial class Location : Page
     {
-        Frame mainFrame;
-        public Location(Frame frame)
-        {
-            mainFrame = frame;
+        public Location()
+        { 
+            this.ShowsNavigationUI = false;
             InitializeComponent();
+            LoadUpButtons();
+        }
+
+        private void RedirectToTavern(object sender, RoutedEventArgs e)
+        {
+            string send = ((Button)sender).Name;
+
+            //mainFrame.Navigate(new Tavern(mainFrame));
+        }
+
+        private void RedirectToMountains(object sender, RoutedEventArgs e)
+        {
+            string send = ((Button)sender).Name;
+
+            //mainFrame.Navigate(new Tavern(mainFrame));
+        }
+
+        private void RedirectToPlains(object sender, RoutedEventArgs e)
+        {
+            string send = ((Button)sender).Name;
+
+            //mainFrame.Navigate(new Tavern(mainFrame));
+        }
+
+        private void RedirectToBattleField(object sender, RoutedEventArgs e) 
+        {
+            string send = ((Button)sender).Name;
+
+        }
+
+        private RoutedEventHandler getCorrectMethod(string name) 
+        {
+            switch (name)
+            {
+                case string a when a.Contains("TAVERN"): return RedirectToTavern;
+                case string b when b.Contains("MOUNTAINS"): return RedirectToBattleField;
+                case string c when c.Contains("PLAINS"): return RedirectToBattleField;
+                default: return null;
+            }
         }
 
         private void LoadUpButtons()
@@ -41,6 +79,8 @@ namespace RPG_Project.GameData.Visuals
                 Button button = new Button();
                 button.Content = model.Name;
                 button.Name = model.Name;
+                button.Click += getCorrectMethod(model.Name);
+                    
                //button.Click =
 
                 Grid.SetColumn(button, model.CoordinateY);

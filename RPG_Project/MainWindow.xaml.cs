@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Data.SqlClient;
 using RPG_Project.GameData.Visuals;
+using RPG_Project.Code.Logic.Session;
 
 namespace RPG_Project
 {
@@ -26,7 +27,7 @@ namespace RPG_Project
         public MainWindow()
         {
             InitializeComponent();
-
+            CurrentSession.Initiate(MainFrame);
         }
 
         private void OnClick_ExitButton(object sender, RoutedEventArgs e) 
@@ -42,7 +43,8 @@ namespace RPG_Project
 
         private void OpenWorldGrid(object sender, RoutedEventArgs e) 
         {
-            MainFrame.Navigate(new WorldMap(MainFrame));
+            MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            MainFrame.Navigate(new WorldMap());
         }
     }
 }

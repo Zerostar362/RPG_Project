@@ -11,6 +11,7 @@ namespace RPG_Project.Code.Logic.SQLcontroller
     internal class SQLController
     {
         SqlConnection con;
+        string quote = "'";
         public SQLController() 
         {
         }
@@ -68,7 +69,7 @@ namespace RPG_Project.Code.Logic.SQLcontroller
         public int queryAllWorld(string worldName)
         {
             int id = 0;
-            SqlDataReader rd = this.CreateConnection("SELECT Id FROM WORLD where Name = " + worldName.Trim());
+            SqlDataReader rd = this.CreateConnection("SELECT Id FROM WORLD where Name = " + quote + worldName.Trim() + quote);
 
 
             while (rd.Read() == true)
@@ -164,6 +165,8 @@ namespace RPG_Project.Code.Logic.SQLcontroller
                 obj.Id = Convert.ToInt32(rd["id"]);
                 obj.Name = Convert.ToString(rd["Name"]);
                 obj.WorldID = Convert.ToInt32(rd["WorldID"]);
+                obj.CoordinateX = Convert.ToInt32(rd["CoordinateX"]);
+                obj.CoordinateY = Convert.ToInt32(rd["CoordinateY"]);
                 list.Add(obj);
             }
             rd.Close();
@@ -261,6 +264,11 @@ namespace RPG_Project.Code.Logic.SQLcontroller
 
             this.CloseConnection();
             return list;
+        }
+
+        public void AppendRecordToTable<TypeValue>(string TableName, object model) 
+        {
+
         }
     }
 }

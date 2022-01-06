@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RPG_Project.Code.Models
 {
-    internal class CharacterModel
+    public class CharacterModel
     {
         public int id { get; set; }
         public string name { get; set; }

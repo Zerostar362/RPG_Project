@@ -1,0 +1,189 @@
+﻿<Page x:Class="RPG_Project.GameData.Creation.AttributeSetUp"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RPG_Project.GameData.Creation"
+      mc:Ignorable="d" 
+      Background="White"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AttributeSetUp">
+
+    <Grid
+        x:Name="Grid"
+        >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Strength block -->
+        <TextBlock
+            Text="Strength"
+            TextAlignment="Center"
+            Grid.Column="1"
+            Grid.Row="2"
+            Margin="10,0,10,35"
+            />
+        <TextBlock
+            x:Name="TextBlock_Strength"
+            TextAlignment="Center"
+            Grid.Column="1"
+            Grid.Row="2"
+            Margin="25,15,25,0"
+            />
+        <Button
+            Name="Button_Strength_Minus"
+            Content="-"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Grid.Column="1"
+            Grid.Row="2"
+            Margin="5,18,80,18"
+            Click="onMinus_Button_Click"
+            />
+        <Button
+            Name="Button_Strength_Plus"
+            Content="+"
+            Grid.Column="1"
+            Grid.Row="2"
+            Margin="80,18,5,18"
+            Click="onPlus_Button_Click"
+            />
+
+        <!-- Strength block end -->
+        <!-- Intelligence block -->
+
+        <TextBlock
+            Text="Intelligence"
+            TextAlignment="Center"
+            Grid.Column="1"
+            Grid.Row="3"
+            Margin="10,0,10,35"
+            />
+        <TextBlock
+            x:Name="TextBlock_Intelligence"
+            TextAlignment="Center"
+            Grid.Column="1"
+            Grid.Row="3"
+            Margin="25,15,25,0"
+            />
+        <Button
+            Name="Button_Intelligence_Minus"
+            Content="-"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Grid.Column="1"
+            Grid.Row="3"
+            Margin="5,18,80,18"
+            Click="onMinus_Button_Click"
+            />
+        <Button
+            Name="Button_Intelligence_Plus"
+            Content="+"
+            Grid.Column="1"
+            Grid.Row="3"
+            Margin="80,18,5,18"
+            Click="onPlus_Button_Click"
+            />
+
+        <!-- Intelligence block end -->
+        <!-- Dexterity Block-->
+
+        <TextBlock
+            Text="Intelligence"
+            TextAlignment="Center"
+            Grid.Column="1"
+            Grid.Row="4"
+            Margin="10,0,10,35"
+            />
+        <TextBlock
+            x:Name="TextBlock_Dexterity"
+            TextAlignment="Center"
+            Grid.Column="1"
+            Grid.Row="4"
+            Margin="25,15,25,0"
+            />
+        <Button
+            Name="Button_Dexterity_Minus"
+            Content="-"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Grid.Column="1"
+            Grid.Row="4"
+            Margin="5,18,80,18"
+            Click="onMinus_Button_Click"
+            />
+        <Button
+            Name="Button_Dexterity_Plus"
+            Content="+"
+            Grid.Column="1"
+            Grid.Row="4"
+            Margin="80,18,5,18"
+            Click="onPlus_Button_Click"
+            />
+
+        <!-- Dexterity block end-->
+        <!-- Endurance block -->
+
+        <TextBlock
+            Text="Intelligence"
+            TextAlignment="Center"
+            Grid.Column="1"
+            Grid.Row="5"
+            Margin="10,0,10,35"
+            />
+        <TextBlock
+            x:Name="TextBlock_Endurace"
+            TextAlignment="Center"
+            Grid.Column="1"
+            Grid.Row="5"
+            Margin="25,15,25,0"
+            />
+        <Button
+            Name="Button_Endurance_Minus"
+            Content="-"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Grid.Column="1"
+            Grid.Row="5"
+            Margin="5,18,80,18"
+            Click="onMinus_Button_Click"
+            />
+        <Button
+            Name="Button_Endurance_Plus"
+            Content="+"
+            Grid.Column="1"
+            Grid.Row="5"
+            Margin="80,18,5,18"
+            Click="onPlus_Button_Click"
+            />
+
+        <!-- Endurance block end-->
+
+        <Button
+            Content="Submit"
+            Grid.Column="1"
+            Grid.Row="6"
+            Margin="10,15,10,15"
+            Click="onSubmit_Button_Click"
+            />
+    </Grid>
+</Page>

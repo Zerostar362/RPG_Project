@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\**" />
+    <EmbeddedResource Remove="Pages\**" />
+    <None Remove="Pages\**" />
+    <Page Remove="Pages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="GameData\Data\Custom\Characters\" />
     <Folder Include="GameData\Data\Custom\Classes\" />
     <Folder Include="GameData\Data\Custom\Items\" />
@@ -24,7 +31,6 @@
     <Folder Include="GameData\Data\INIT\World\" />
     <Folder Include="GameData\Data\INIT\Quests\" />
     <Folder Include="GameData\Data\INIT\Player\" />
-    <Folder Include="Pages\" />
   </ItemGroup>
 
   <ItemGroup>

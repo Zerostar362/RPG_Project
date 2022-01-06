@@ -23,9 +23,9 @@ namespace RPG_Project.GameData.Visuals
     /// </summary>
     public partial class WorldMap : Page
     {
-        Frame mainFrame;
-        public WorldMap(Frame frame)
+        public WorldMap()
         {
+            this.ShowsNavigationUI = false;
             InitializeComponent();
             LoadUpButtons();
         }
@@ -36,7 +36,7 @@ namespace RPG_Project.GameData.Visuals
 
             CurrentSession.setWorldId(send);
 
-            mainFrame.Navigate(new Location(mainFrame));
+            CurrentSession.mainFrame.Navigate(new Location());
         }
 
         private void LoadUpButtons() 
