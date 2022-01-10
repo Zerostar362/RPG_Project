@@ -52,6 +52,17 @@
             Margin="30,0,0,0"
             FontSize="20"
             />
+        <TextBlock
+            x:Name="TextBlock_UsernameUsed"
+            Text=""
+            Grid.Column="5"
+            Grid.Row="1"
+            Foreground="Red"
+            Grid.ColumnSpan="2"
+            FontSize="19"
+            TextAlignment="Center"
+            
+            />
 
         <TextBox
             x:Name="NameBox"
@@ -63,6 +74,7 @@
             FontSize="20"
             BorderBrush="Black"
             BorderThickness="1"
+            LostFocus="NameBox_LostFocus"
             />
 
         <ComboBox

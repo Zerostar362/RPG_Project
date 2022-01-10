@@ -72,7 +72,7 @@ namespace RPG_Project.GameData.Visuals
         {
             SQLController sql = new SQLController();
 
-            List<LocationModel> list = sql.queryAllLocation(CurrentSession.WorldId);
+            List<LocationModel> list = sql.queryLocation(CurrentSession.WorldId);
 
             foreach (LocationModel model in list)
             {

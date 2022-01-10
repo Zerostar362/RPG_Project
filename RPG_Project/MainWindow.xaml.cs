@@ -16,6 +16,7 @@ using System.IO;
 using System.Data.SqlClient;
 using RPG_Project.GameData.Visuals;
 using RPG_Project.Code.Logic.Session;
+using RPG_Project.GameData.Creation;
 
 namespace RPG_Project
 {
@@ -28,6 +29,11 @@ namespace RPG_Project
         {
             InitializeComponent();
             CurrentSession.Initiate(MainFrame);
+        }
+
+        private void openChaCr_Click_Button(object sender, RoutedEventArgs e) 
+        {
+            MainFrame.Navigate(new CharacterCreation());
         }
 
         private void OnClick_ExitButton(object sender, RoutedEventArgs e) 

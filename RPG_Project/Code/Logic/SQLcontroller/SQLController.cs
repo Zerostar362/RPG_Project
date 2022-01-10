@@ -15,6 +15,11 @@ namespace RPG_Project.Code.Logic.SQLcontroller
         public SQLController() 
         {
         }
+
+        private string AddQuote(string str) 
+        {
+            return quote + str.Trim() + quote;
+        }
         /// <summary>
         /// Creates connection with localDB and executes command
         /// </summary>
@@ -86,7 +91,7 @@ namespace RPG_Project.Code.Logic.SQLcontroller
         public int queryWorld(string worldName)
         {
             int id = 0;
-            SqlDataReader rd = this.CreateConnection("SELECT Id FROM WORLD where Name = " + quote + worldName.Trim() + quote);
+            SqlDataReader rd = this.CreateConnection($"SELECT Id FROM WORLD where Name = {AddQuote(worldName)}");
 
 
             while (rd.Read() == true)
@@ -204,7 +209,10 @@ namespace RPG_Project.Code.Logic.SQLcontroller
             this.CloseConnection();
             return list;
         }
-
+        /// <summary>
+        /// Queries all items in database
+        /// </summary>
+        /// <returns>List of ItemsModel objects</returns>
         public List<ItemsModel> queryItems() 
         {
             List<ItemsModel> list = new List<ItemsModel>();
@@ -239,7 +247,10 @@ namespace RPG_Project.Code.Logic.SQLcontroller
             this.CloseConnection();
             return list;
         }
-
+        /// <summary>
+        /// Queries for all characters in database
+        /// </summary>
+        /// <returns>List of CharacterModel objects</returns>
         public List<CharacterModel> queryCharacters()
         {
             List<CharacterModel> list = new List<CharacterModel>();
@@ -274,7 +285,68 @@ namespace RPG_Project.Code.Logic.SQLcontroller
             this.CloseConnection();
             return list;
         }
+        /// <summary>
+        /// Searches characters via its name
+        /// </summary>
+        /// <param name="CharName">Character name</param>
+        /// <returns>List of CharacterModel object</returns>
+        public List<CharacterModel> queryCharacters(string CharName)
+        {
+            List<CharacterModel> list = new List<CharacterModel>();
+            SqlDataReader rd = this.CreateConnection($"SELECT * FROM CHARACTERS WHERE name = {AddQuote(CharName)}");
 
+            var type = typeof(CharacterModel);
+
+            while (rd.Read() == true)
+            {
+                CharacterModel obj = (CharacterModel)Activator.CreateInstance(type);
+                obj.id = Convert.ToInt32(rd["id"]);
+                obj.name = Convert.ToString(rd["Name"]);
+                obj.PlayerID = Convert.ToInt32(rd["PlayerID"]);
+                obj.ClassID = Convert.ToInt32(rd["ClassID"]);
+                obj.Money = Convert.ToInt32(rd["Money"]);
+                obj.Level = Convert.ToInt32(rd["Level"]);
+                obj.EXP = Convert.ToInt32(rd["EXP"]);
+                obj.HP = Convert.ToInt32(rd["HP"]);
+                obj.Intelligence = Convert.ToInt32(rd["Intelligence"]);
+                obj.Strength = Convert.ToInt32(rd["Strength"]);
+                obj.Dexterity = Convert.ToInt32(rd["Dexterity"]);
+                obj.Description = Convert.ToString(rd["Description"]);
+                obj.Helmet = Convert.ToInt32(rd["Helmet"]);
+                obj.Torso = Convert.ToInt32(rd["Torso"]);
+                obj.Legs = Convert.ToInt32(rd["Legs"]);
+                obj.Boots = Convert.ToInt32(rd["boots"]);
+                obj.Weapon = Convert.ToInt32(rd["Weapon"]);
+                list.Add(obj);
+            }
+            rd.Close();
+
+            this.CloseConnection();
+            return list;
+        }
+
+        public bool isInCharacters(string CharName) 
+        {
+            SqlDataReader rd = this.CreateConnection($"SELECT Name FROM CHARACTERS WHERE name = {AddQuote(CharName)}");
+            string control = "";
+            while(rd.Read() == true) 
+            {
+                control = Convert.ToString(rd["Name"]);
+            }
+
+            if (control != "") 
+            {
+                return true;
+            }
+            else 
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// Quries for all classes in databse
+        /// </summary>
+        /// <returns>List of ClassModel objects</returns>
         public List<ClassModel> queryClass()
         {
             List<ClassModel> list = new List<ClassModel>();
@@ -295,35 +367,86 @@ namespace RPG_Project.Code.Logic.SQLcontroller
             this.CloseConnection();
             return list;
         }
-
-        public int queryClass(string ClassName) 
+        /// <summary>
+        /// Searches for Class via its name, if Class ID is 0, it means that there are no records in database with this name.
+        /// </summary>
+        /// <param name="ClassName">Class Name</param>
+        /// <returns>ClassID</returns>
+        public int queryClass(string ClassName)
         {
-            return 5;
-        }
+            List<ClassModel> list = new List<ClassModel>();
+            SqlDataReader rd = this.CreateConnection($"SELECT ID FROM CLASS where ClassName = {AddQuote(ClassName)}");
 
+            var type = typeof(ClassModel);
+
+            rd.Read();
+
+            int ID = Convert.ToInt32(rd["ID"]);
+            
+            rd.Close();
+
+            this.CloseConnection();
+            if(ID == null) { ID = 0; };
+            return ID;
+        }
+        /// <summary>
+        /// Quries for Class using Its ID
+        /// </summary>
+        /// <param name="ID">Class ID</param>
+        /// <returns>List of Class model objects</returns>
+        public List<ClassModel> queryClass(int ID)
+        {
+            List<ClassModel> list = new List<ClassModel>();
+            SqlDataReader rd = this.CreateConnection($"SELECT * FROM CLASS where ID = {ID}");
+
+            var type = typeof(ClassModel);
+
+            while (rd.Read() == true)
+            {
+                ClassModel obj = (ClassModel)Activator.CreateInstance(type);
+                obj.id = Convert.ToInt32(rd["id"]);
+                obj.ClassName = Convert.ToString(rd["Name"]);
+                obj.Description = Convert.ToString(rd["WorldID"]);
+                list.Add(obj);
+            }
+            rd.Close();
+
+            this.CloseConnection();
+            return list;
+        }
+        /// <summary>
+        /// Appends character model to the table, All the parameteres needs to be added(model parameters)
+        /// </summary>
+        /// <param name="model">CharacterModel object</param>
         public void AppendRecordToTable(CharacterModel model) 
         {
             string query = "INSERT INTO Characters (Name, PlayerID, ClassID, Money, Level, EXP, HP, Endurance, Intelligence, " +
                 "Strength, Dexterity, Description)" +
-                $"VALUES({model.name},{model.PlayerID},{model.ClassID},{model.Money},{model.Level},{model.EXP},{model.HP},{model.Endurance}," +
-                $"{model.Intelligence},{model.Strength},{model.Dexterity},{model.Description})";
+                $"VALUES({AddQuote(model.name)},{model.PlayerID},{model.ClassID},{model.Money},{model.Level},{model.EXP},{model.HP},{model.Endurance}," +
+                $"{model.Intelligence},{model.Strength},{model.Dexterity},{AddQuote(model.Description)})";
             SqlDataReader rd = this.CreateConnection(query);
         }
-
+        /// <summary>
+        /// Appends Item model to the table, All the model parameters must be added
+        /// </summary>
+        /// <param name="model">ItemsModel object</param>
         public void AppendRecordToTable(ItemsModel model)
         {
-            string query = "INSERT INTO Characters (Name, ItemType, AvgDMG, dmgRangePercentage,Endurance, Strength, Intelligence, Dexterity, Description, minLvl, " +
+            string query = "INSERT INTO Items (Name, ItemType, AvgDMG, dmgRangePercentage,Endurance, Strength, Intelligence, Dexterity, Description, minLvl, " +
                 "Armor, Class1, Class2, Class3,SpawnLocation1, SpawnLocation2, SpawnLocation 3)" +
-                $"VALUES({model.name},{model.ItemType},{model.AvgDMG},{model.dmgRangePercentage},{model.Endurance},{model.Strength},{model.Intelligence},{model.Dexterity},{model.Description}," +
+                $"VALUES({AddQuote(model.name)},{model.ItemType},{model.AvgDMG},{model.dmgRangePercentage},{model.Endurance},{model.Strength},{model.Intelligence},{model.Dexterity},{model.Description}," +
                 $"{model.minLvl},{model.Armor},{model.Class1},{model.Class2},{model.Class3},{model.SpawnLocation1},{model.SpawnLocation2},{model.SpawnLocation3})";
             SqlDataReader rd = this.CreateConnection(query);
         }
-
+        /// <summary>
+        /// Appends monster to the table, all the model parameters needs to be filled
+        /// </summary>
+        /// <param name="model">MonsterModel object</param>
         public void AppendRecordToTable(MonsterModel model)
         {
-            string query = "INSERT INTO Characters (Name, Class, SpawnLocation1, SpawnLocation2, SpawnLocation3, Endurance,Strength, Intelligence, Dexterity, Experience, " +
+            string query = "INSERT INTO Monsters (Name, Class, SpawnLocation1, SpawnLocation2, SpawnLocation3, Endurance,Strength, Intelligence, Dexterity, Experience, " +
                 "WorldSpawn)" +
-                $"VALUES({model.Name},{model.Class},{model.SpawnLocation1},{model.SpawnLocation2},{model.SpawnLocation3},{model.Endurance},{model.Strength},{model.Intelligence}," +
+                $"VALUES({AddQuote(model.Name)},{model.Class.ToString()},{model.SpawnLocation1},{model.SpawnLocation2},{model.SpawnLocation3},{model.Endurance},{model.Strength},{model.Intelligence}," +
                 $"{model.Dexterity},{model.Experience},{model.WorldSpawn})";
             SqlDataReader rd = this.CreateConnection(query);
         }

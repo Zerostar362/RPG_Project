@@ -16,24 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="GameData\Data\Custom\Characters\" />
-    <Folder Include="GameData\Data\Custom\Classes\" />
-    <Folder Include="GameData\Data\Custom\Items\" />
-    <Folder Include="GameData\Data\Custom\Locations\" />
-    <Folder Include="GameData\Data\Custom\Monsters\" />
-    <Folder Include="GameData\Data\Custom\Player\" />
-    <Folder Include="GameData\Data\Custom\Quests\" />
-    <Folder Include="GameData\Data\Custom\World\" />
-    <Folder Include="GameData\Data\INIT\Characters\" />
-    <Folder Include="GameData\Data\INIT\Items\" />
-    <Folder Include="GameData\Data\INIT\Monsters\" />
-    <Folder Include="GameData\Data\INIT\Locations\" />
-    <Folder Include="GameData\Data\INIT\World\" />
-    <Folder Include="GameData\Data\INIT\Quests\" />
-    <Folder Include="GameData\Data\INIT\Player\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
   </ItemGroup>

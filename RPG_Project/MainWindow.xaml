@@ -34,6 +34,11 @@
                 Margin="0,5"
                 />
             <Button
+                Content="Create character"
+                Margin="0,5"
+                Click="openChaCr_Click_Button"
+                />
+            <Button
                 Content="World"
                 Margin="0,5"
                 Click="OpenWorldGrid"

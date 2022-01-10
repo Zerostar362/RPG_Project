@@ -1,4 +1,5 @@
-﻿using RPG_Project.Code.Models;
+﻿using RPG_Project.Code.Logic.Session;
+using RPG_Project.Code.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +22,11 @@ namespace RPG_Project.GameData.Creation
     /// </summary>
     public partial class AttributeSetUp : Page
     {
-        CharacterModel charModel;
+        CharacterModel model;
 
-        public AttributeSetUp(CharacterModel model)
+        public AttributeSetUp(CharacterModel charModel)
         {
-            charModel = model;
+            model = charModel;
             InitializeComponent();
             InitValues();
         }
@@ -36,6 +37,24 @@ namespace RPG_Project.GameData.Creation
             TextBlock_Endurace.Text = "1";
             TextBlock_Intelligence.Text = "1";
             TextBlock_Strength.Text = "1";
+            TextBlock_MaxPoints.Text = "20";
+        }
+        /// <summary>
+        /// Increases or decreases value of max points
+        /// </summary>
+        /// <param name="Increase">if true, the number increases. If false, number decrease</param>
+        private void updateMaxPoints_TextBlock(bool Increase) 
+        {
+            if(Increase == true) 
+            {
+                 int i  = Int32.Parse(TextBlock_MaxPoints.Text);
+                 TextBlock_MaxPoints.Text = (++i).ToString();
+            }
+            else 
+            {
+                int i = Int32.Parse(TextBlock_MaxPoints.Text);
+                TextBlock_MaxPoints.Text = (--i).ToString();
+            }
         }
 
         private void IncValue(object sender) 
@@ -45,30 +64,46 @@ namespace RPG_Project.GameData.Creation
             {
                 case string a when name.Contains("Intelligence"): 
                 {
-                    int i = Int32.Parse(TextBlock_Intelligence.Text);
-                    i++;
-                    TextBlock_Intelligence.Text = i.ToString();
+                        if (TextBlock_MaxPoints.Text != "0")
+                        {
+                            int i = Int32.Parse(TextBlock_Intelligence.Text);
+                            i++;
+                            TextBlock_Intelligence.Text = i.ToString();
+                            updateMaxPoints_TextBlock(false);
+                        }
                 }
                 break;
                 case string b when name.Contains("Strength"):
                     {
-                        int i = Int32.Parse(TextBlock_Strength.Text);
-                        i++;
-                        TextBlock_Strength.Text = i.ToString();
+                        if (TextBlock_MaxPoints.Text != "0")
+                        {
+                            int i = Int32.Parse(TextBlock_Strength.Text);
+                            i++;
+                            TextBlock_Strength.Text = i.ToString();
+                            updateMaxPoints_TextBlock(false);
+                        }
                     }
                     break;
                 case string c when name.Contains("Dexterity"):
                     {
-                        int i = Int32.Parse(TextBlock_Dexterity.Text);
-                        i++;
-                        TextBlock_Dexterity.Text = i.ToString();
+                        if (TextBlock_MaxPoints.Text != "0")
+                        {
+                            int i = Int32.Parse(TextBlock_Dexterity.Text);
+                            i++;
+                            TextBlock_Dexterity.Text = i.ToString();
+                            updateMaxPoints_TextBlock(false);
+                        }
                     }
                     break;
                 case string c when name.Contains("Endurance"):
                     {
-                        int i = Int32.Parse(TextBlock_Endurace.Text);
-                        i++;
-                        TextBlock_Endurace.Text = i.ToString();
+                        if (TextBlock_MaxPoints.Text != "0")
+                        {
+                            int i = Int32.Parse(TextBlock_Endurace.Text);
+                            i++;
+                            TextBlock_Endurace.Text = i.ToString();
+                            updateMaxPoints_TextBlock(false);
+                        }
                     }
                     break;
             }
@@ -85,6 +120,7 @@ namespace RPG_Project.GameData.Creation
                         if(i == 1) { break; }
                         i--;
                         TextBlock_Intelligence.Text = i.ToString();
+                        updateMaxPoints_TextBlock(true);
                     }
                     break;
                 case string b when name.Contains("Strength"):
@@ -93,6 +129,7 @@ namespace RPG_Project.GameData.Creation
                         if (i == 1) { break; }
                         i--;
                         TextBlock_Strength.Text = i.ToString();
+                        updateMaxPoints_TextBlock(true);
                     }
                     break;
                 case string c when name.Contains("Dexterity"):
@@ -101,6 +138,7 @@ namespace RPG_Project.GameData.Creation
                         if (i == 1) { break; }
                         i--;
                         TextBlock_Dexterity.Text = i.ToString();
+                        updateMaxPoints_TextBlock(true);
                     }
                     break;
                 case string c when name.Contains("Endurance"):
@@ -109,6 +147,7 @@ namespace RPG_Project.GameData.Creation
                         if (i == 1) { break; }
                         i--;
                         TextBlock_Endurace.Text = i.ToString();
+                        updateMaxPoints_TextBlock(true);
                     }
                     break;
             }
@@ -126,7 +165,13 @@ namespace RPG_Project.GameData.Creation
 
         private void onSubmit_Button_Click(object sender, RoutedEventArgs e) 
         {
+            model.Strength     = Int32.Parse(TextBlock_Strength.Text);
+            model.Intelligence = Int32.Parse(TextBlock_Intelligence.Text);
+            model.Endurance = Int32.Parse(TextBlock_Endurace.Text);
+            model.Dexterity = Int32.Parse(TextBlock_Dexterity.Text);
 
+            model.AppendClassToDatabase();
+            CurrentSession.clearMainFrameMemory();
         }
     }
 }

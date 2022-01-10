@@ -23,21 +23,24 @@ namespace RPG_Project.GameData.Creation
     /// </summary>
     public partial class CharacterCreation : Page
     {
+        SQLController sql;
         public CharacterCreation()
         {
             InitializeComponent();
+            sql = new SQLController();
         }
 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
+            if(TextBlock_UsernameUsed.Text == "Username is already in use") 
+            {
+                return;
+            }
             if(NameBox.Text != "" && ComboBox.Text != "Choose your class") 
             {
                 CharacterModel characterModel = new CharacterModel();
                 //should be done in multithread to speed things up Task.Run(()=> {});
-                Task.Run(() => 
-                { 
                     characterModel.name = NameBox.Text.Trim();
-                    SQLController sql = new SQLController();
                     characterModel.ClassID = sql.queryClass(ComboBox.Text);
                     //default new character values-------------------------------
                     characterModel.Money = 10;
@@ -47,13 +50,25 @@ namespace RPG_Project.GameData.Creation
                     //-----------------------------------------------------------
                     //only for test purposes ------------------------------------
                     characterModel.PlayerID = 1;
-                    //-----------------------------------------------------------
-                }); 
+                characterModel.Description = "empty";
+                    //--------------------------------------------------------------
                 CurrentSession.mainFrame.Navigate(new AttributeSetUp(characterModel));
             }
             else 
             {
                 AlerText.Text = "Wrong selection of username or class";
+            }
+        }
+
+        private void NameBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if(sql.isInCharacters(NameBox.Text) == true) 
+            {
+                TextBlock_UsernameUsed.Text = "Username is already in use";
+            }
+            else 
+            {
+                TextBlock_UsernameUsed.Text = string.Empty;
             }
         }
     }

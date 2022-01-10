@@ -43,7 +43,7 @@ namespace RPG_Project.GameData.Visuals
         {
             SQLController sql = new SQLController();
 
-            List<WorldModel> list = sql.queryAllWorld();
+            List<WorldModel> list = sql.queryWorld();
 
             foreach (WorldModel model in list) 
             {

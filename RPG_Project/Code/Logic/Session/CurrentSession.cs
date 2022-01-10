@@ -25,6 +25,7 @@ namespace RPG_Project.Code.Logic.Session
             mainFrame = frame;
             //only for dev purpose
             PlayerID = 1;
+            mainFrame.NavigationUIVisibility = System.Windows.Navigation.NavigationUIVisibility.Hidden;
         }
 
         public static void clearMainFrameMemory() 
@@ -43,7 +44,7 @@ namespace RPG_Project.Code.Logic.Session
 
         public static void setWorldId(string worldName) 
         {
-            WorldId = sql.queryAllWorld(worldName);
+            WorldId = sql.queryWorld(worldName);
         }
     }
 }
