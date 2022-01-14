@@ -40,7 +40,7 @@ namespace RPG_Project.Code.Models
         /// gets Endurance attribute from all items
         /// </summary>
         /// <returns>sum of Endurance from items</returns>
-        private int getItemEndurance() 
+        /*private int getItemEndurance() 
         {
             if(this.Helmet != 0) 
             {
@@ -57,18 +57,18 @@ namespace RPG_Project.Code.Models
             if(Weapon != 0) 
             {
             }
-        }
+        }*/
         /// <summary>
         /// Does the dmg Calculation
         /// </summary>
         /// <returns>DMG</returns>
-        private int getWeaponDMG() 
+        /*private int getWeaponDMG() 
         {
-        }
+        }*/
         private void CalculateData_Warrior() 
         {
-            int EnduranceFromItems = getItemEndurance();
-            this.HP = Endurance * 4 * EnduranceFromItems;
+            //int EnduranceFromItems = getItemEndurance();
+            //this.HP = Endurance * 4 * EnduranceFromItems;
         }
 
         private void CalculateData_Mage() 
