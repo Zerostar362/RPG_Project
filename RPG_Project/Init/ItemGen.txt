@@ -1,0 +1,5 @@
+﻿Item generetion needs to be completely revamped. Work is underway.
+
+1. Few unique item names with possible Pictures.
+2. Item stats will be generated after Shop roll.
+3. Actively used Items will be stored in DB and after deletion will be marked as deleted.

@@ -17,6 +17,7 @@ using System.Data.SqlClient;
 using RPG_Project.GameData.Visuals;
 using RPG_Project.Code.Logic.Session;
 using RPG_Project.GameData.Creation;
+using RPG_Project.Init;
 
 namespace RPG_Project
 {
@@ -29,6 +30,9 @@ namespace RPG_Project
         {
             InitializeComponent();
             CurrentSession.Initiate(MainFrame);
+            //test purposes
+            MainFrame.Navigate(new ChooseChar());
+            CurrentSession.CharacterID = 1;
         }
 
         private void openChaCr_Click_Button(object sender, RoutedEventArgs e) 
@@ -51,6 +55,12 @@ namespace RPG_Project
         {
             MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
             MainFrame.Navigate(new WorldMap());
+        }
+
+        private void generateItemTemplates_buttonClick(object sende, RoutedEventArgs e) 
+        {
+            ItemTemplatesGen gen = new ItemTemplatesGen();
+            //gen.generateTemplate();
         }
     }
 }

@@ -75,6 +75,10 @@
             <Button
                 Content="report a bug"
                 />
+            <Button
+                Content="Generate item templates"
+                Click="generateItemTemplates_buttonClick"
+                />
         </StackPanel>
         <!-- main screen-->
         <Frame

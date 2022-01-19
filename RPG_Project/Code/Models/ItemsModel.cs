@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RPG_Project.Init;
 
 namespace RPG_Project.Code.Models
 {
-    internal class ItemsModel
+    internal class ItemsModel : StatGen
     {
         public int id { get; set; }
         public string name { get; set; }

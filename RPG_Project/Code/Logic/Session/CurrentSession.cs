@@ -15,6 +15,7 @@ namespace RPG_Project.Code.Logic.Session
         public static int LocationID { get; set; }
         public static int CharacterID { get; set; }
         public static int PlayerID { get; set; }
+        public static int CharLvl { get; set; }
 
         public static Frame mainFrame;
 
@@ -45,6 +46,11 @@ namespace RPG_Project.Code.Logic.Session
         public static void setWorldId(string worldName) 
         {
             WorldId = sql.queryWorld(worldName);
+        }
+
+        public static void updateCurrentCharacter() 
+        {
+
         }
     }
 }

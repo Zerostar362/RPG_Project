@@ -414,6 +414,39 @@ namespace RPG_Project.Code.Logic.SQLcontroller
             this.CloseConnection();
             return list;
         }
+
+        public List<ItemTemplateModel> queryTemplate() 
+        {
+            List<ItemTemplateModel> list = new List<ItemTemplateModel>();
+            SqlDataReader rd = this.CreateConnection($"SELECT * FROM ItemTemplateModel");
+
+            var type = typeof(ItemTemplateModel);
+
+            while (rd.Read() == true)
+            {
+                ItemTemplateModel obj = (ItemTemplateModel)Activator.CreateInstance(type);
+                obj.ID = Convert.ToInt32(rd["id"]);
+                obj.Name = Convert.ToString(rd["ItemName"]);
+                obj.ItemType = Convert.ToInt32(rd["ItemType"]);
+                list.Add(obj);
+            }
+            rd.Close();
+
+            this.CloseConnection();
+            return list;
+        }
+        public ItemTemplateModel queryTemplate(int ID) 
+        {
+            string query = $"SELECT * FROM ItemTemplates WHERE ID = {ID}";
+            SqlDataReader rd = this.CreateConnection(query);
+            var type = typeof(ItemTemplateModel);
+            ItemTemplateModel obj = (ItemTemplateModel)Activator.CreateInstance(type);
+            obj.ID = Convert.ToInt32(rd["ID"]);
+            obj.Name = Convert.ToString(rd["ItemName"]);
+            obj.ItemType = Convert.ToInt32(rd["ItemType"]);
+
+            return obj;
+        }
         /// <summary>
         /// Appends character model to the table, All the parameteres needs to be added(model parameters)
         /// </summary>
@@ -425,6 +458,7 @@ namespace RPG_Project.Code.Logic.SQLcontroller
                 $"VALUES({AddQuote(model.name)},{model.PlayerID},{model.ClassID},{model.Money},{model.Level},{model.EXP},{model.HP},{model.Endurance}," +
                 $"{model.Intelligence},{model.Strength},{model.Dexterity},{AddQuote(model.Description)})";
             SqlDataReader rd = this.CreateConnection(query);
+            this.CloseConnection();
         }
         /// <summary>
         /// Appends Item model to the table, All the model parameters must be added
@@ -437,6 +471,7 @@ namespace RPG_Project.Code.Logic.SQLcontroller
                 $"VALUES({AddQuote(model.name)},{model.ItemType},{model.AvgDMG},{model.dmgRangePercentage},{model.Endurance},{model.Strength},{model.Intelligence},{model.Dexterity},{model.Description}," +
                 $"{model.minLvl},{model.Armor},{model.Class1},{model.Class2},{model.Class3},{model.SpawnLocation1},{model.SpawnLocation2},{model.SpawnLocation3})";
             SqlDataReader rd = this.CreateConnection(query);
+            this.CloseConnection();
         }
         /// <summary>
         /// Appends monster to the table, all the model parameters needs to be filled
@@ -449,6 +484,27 @@ namespace RPG_Project.Code.Logic.SQLcontroller
                 $"VALUES({AddQuote(model.Name)},{model.Class.ToString()},{model.SpawnLocation1},{model.SpawnLocation2},{model.SpawnLocation3},{model.Endurance},{model.Strength},{model.Intelligence}," +
                 $"{model.Dexterity},{model.Experience},{model.WorldSpawn})";
             SqlDataReader rd = this.CreateConnection(query);
+            this.CloseConnection();
+        }
+        /// <summary>
+        /// Appends ItemTemplateModel to database
+        /// </summary>
+        /// <param name="model">ItemTemplateModel object</param>
+        public void AppendRecordToTable(ItemTemplateModel model) 
+        {
+            string query = $"INSERT INTO ItemTemplates (ItemName, ItemType) VALUES({AddQuote(model.Name)},{model.ItemType})";
+            SqlDataReader rd = this.CreateConnection(query);
+            this.CloseConnection();
+        }
+
+        public void AppendRecordToTable(List<ItemTemplateModel> list)
+        {
+            foreach (ItemTemplateModel model in list)
+            {
+                string query = $"INSERT INTO ItemTemplates (ItemName, ItemType) VALUES({AddQuote(model.Name)},{model.ItemType})";
+                SqlDataReader rd = this.CreateConnection(query);
+            }
+            this.CloseConnection();
         }
     }
 }

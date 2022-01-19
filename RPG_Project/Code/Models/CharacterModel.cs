@@ -32,6 +32,12 @@ namespace RPG_Project.Code.Models
         /// <summary>
         /// PreLoads all items, so they dont have to be queried all the time
         /// </summary>
+
+        public static List<CharacterModel> getCharactersList() 
+        {
+            SQLController sql = new SQLController();
+            return sql.queryCharacters();
+        }
         private void LoadUpItems() 
         {
             sql.queryItems();
