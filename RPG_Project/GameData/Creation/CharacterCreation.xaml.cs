@@ -23,11 +23,9 @@ namespace RPG_Project.GameData.Creation
     /// </summary>
     public partial class CharacterCreation : Page
     {
-        SQLController sql;
         public CharacterCreation()
         {
             InitializeComponent();
-            sql = new SQLController();
         }
 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
@@ -41,7 +39,7 @@ namespace RPG_Project.GameData.Creation
                 CharacterModel characterModel = new CharacterModel();
                 //should be done in multithread to speed things up Task.Run(()=> {});
                     characterModel.name = NameBox.Text.Trim();
-                    characterModel.ClassID = sql.queryClass(ComboBox.Text);
+                    characterModel.ClassID = SQLController.queryClass(ComboBox.Text);
                     //default new character values-------------------------------
                     characterModel.Money = 10;
                     characterModel.Level = 1;
@@ -62,7 +60,7 @@ namespace RPG_Project.GameData.Creation
 
         private void NameBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if(sql.isInCharacters(NameBox.Text) == true) 
+            if(SQLController.isInCharacters(NameBox.Text) == true) 
             {
                 TextBlock_UsernameUsed.Text = "Username is already in use";
             }

@@ -19,7 +19,7 @@ namespace RPG_Project.Code.Logic.Session
 
         public static Frame mainFrame;
 
-        private static SQLController sql = new SQLController();
+        //private static SQLController sql = new SQLController();
 
         public static void Initiate(Frame frame) 
         {
@@ -45,7 +45,7 @@ namespace RPG_Project.Code.Logic.Session
 
         public static void setWorldId(string worldName) 
         {
-            WorldId = sql.queryWorld(worldName);
+            WorldId = SQLController.queryWorld(worldName);
         }
 
         public static void updateCurrentCharacter() 

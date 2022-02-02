@@ -22,12 +22,11 @@ namespace RPG_Project.GameData.Visuals.Shop
     /// </summary>
     public partial class ShopMainPage : Page
     {
-        SQLController sql;
         Random rng;
         public ShopMainPage()
         {
             rng = new Random();
-            sql = new SQLController();
+            //sql = new SQLController();
             InitializeComponent();
             for (int i = 0; i < 6; i++)
             {
@@ -41,7 +40,7 @@ namespace RPG_Project.GameData.Visuals.Shop
         private string getRandomItem()
         {
             ItemTemplateModel itemTemplate = new ItemTemplateModel();
-            itemTemplate = sql.queryTemplate(rng.Next(1, 50));
+            itemTemplate = SQLController.queryTemplate(rng.Next(1, 50));
             ItemsModel items = new ItemsModel();
             return itemTemplate.Name;
         }

@@ -15,10 +15,9 @@ namespace RPG_Project.Init
     /// </summary>
     internal class StatGen 
     {
-        SQLController sql;
         public StatGen() 
         {
-            sql = new SQLController();
+            
         }
 
         protected virtual void generateItemStats() 

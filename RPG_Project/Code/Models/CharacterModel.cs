@@ -28,19 +28,18 @@ namespace RPG_Project.Code.Models
         public int Boots { get; set; }
         public int Weapon { get; set; }
 
-        private SQLController sql;
         /// <summary>
         /// PreLoads all items, so they dont have to be queried all the time
         /// </summary>
 
         public static List<CharacterModel> getCharactersList() 
         {
-            SQLController sql = new SQLController();
-            return sql.queryCharacters();
+            //SQLController sql = new SQLController();
+            return SQLController.queryCharacters();
         }
         private void LoadUpItems() 
         {
-            sql.queryItems();
+            SQLController.queryItems();
         }
         /// <summary>
         /// gets Endurance attribute from all items
@@ -100,8 +99,8 @@ namespace RPG_Project.Code.Models
         }
         public void AppendClassToDatabase() 
         {
-            sql = new SQLController();
-            sql.AppendRecordToTable(this);
+            //sql = new SQLController();
+            SQLController.AppendRecordToTable(this);
         }
     }
 }

@@ -68,8 +68,7 @@ namespace RPG_Project.Init
                 templates.Add(model);
             }
 
-            SQLController sql = new SQLController();
-            sql.AppendRecordToTable(templates);
+            SQLController.AppendRecordToTable(templates);
 
         }
     }

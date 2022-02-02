@@ -70,9 +70,8 @@ namespace RPG_Project.GameData.Visuals
 
         private void LoadUpButtons()
         {
-            SQLController sql = new SQLController();
 
-            List<LocationModel> list = sql.queryLocation(CurrentSession.WorldId);
+            List<LocationModel> list = SQLController.queryLocation(CurrentSession.WorldId);
 
             foreach (LocationModel model in list)
             {

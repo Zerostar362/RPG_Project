@@ -8,27 +8,30 @@ using System.Threading.Tasks;
 
 namespace RPG_Project.Code.Logic.SQLcontroller
 {
-    internal class SQLController
+    internal static class SQLController
     {
-        SqlConnection con;
-        string quote = "'";
-        public SQLController() 
-        {
-        }
+        private static SqlConnection con;
+        private static string quote = "'";
+        
 
-        private string AddQuote(string str) 
+        private static string AddQuote(string str) 
         {
             return quote + str.Trim() + quote;
+        }
+
+        public static void CreateConnection() 
+        {
+            con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\zeros\Source\Repos\Zerostar362\RPG_Project\RPG_Project\GameData\GameData.mdf;Integrated Security=True");
         }
         /// <summary>
         /// Creates connection with localDB and executes command
         /// </summary>
         /// <param name="command">Query command for localDB</param>
         /// <returns></returns>
-        private SqlDataReader CreateConnection(string command) 
+        private static SqlDataReader Query(string command) 
         {
-            con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\zeros\Source\Repos\Zerostar362\RPG_Project\RPG_Project\GameData\GameData.mdf;Integrated Security=True");
-            con.Open();
+            //con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\zeros\Source\Repos\Zerostar362\RPG_Project\RPG_Project\GameData\GameData.mdf;Integrated Security=True");
+            //con.Open();
             SqlCommand cmd = new SqlCommand(command, con);
             SqlDataReader reader = cmd.ExecuteReader();
             return reader;
@@ -36,36 +39,18 @@ namespace RPG_Project.Code.Logic.SQLcontroller
         /// <summary>
         /// Closes connection to localDB
         /// </summary>
-        private void CloseConnection() 
+        public static void CloseConnection() 
         {
             con.Close();
-        }
-        /// <summary>
-        /// Query and valid SQL string
-        /// </summary>
-        /// <param name="command">SQL query</param>
-        /// <returns></returns>
-        public string querySQLdataTostring(string command) 
-        {
-            string queryResult = "";
-            SqlDataReader rd = CreateConnection(command);
-            while (rd.Read() == true)
-            {
-                queryResult = rd.GetString(1) + queryResult;
-            }
-            rd.Close();
-
-            this.CloseConnection();
-            return queryResult;
         }
         /// <summary>
         /// SQL query to the world table
         /// </summary>
         /// <returns>List of WorldModel objects, they represent every record in localDB</returns>
-        public List<WorldModel> queryWorld() 
+        public static List<WorldModel> queryWorld() 
         {
             List<WorldModel> list = new List<WorldModel>();
-            SqlDataReader rd = this.CreateConnection("SELECT * FROM WORLD");
+            SqlDataReader rd = Query("SELECT * FROM WORLD");
 
             var type = typeof(WorldModel);
 
@@ -80,7 +65,7 @@ namespace RPG_Project.Code.Logic.SQLcontroller
             }
             rd.Close();
 
-            this.CloseConnection();
+            //this.CloseConnection();
             return list;
         }
         /// <summary>
@@ -88,10 +73,10 @@ namespace RPG_Project.Code.Logic.SQLcontroller
         /// </summary>
         /// <param name="worldName">World name</param>
         /// <returns>record ID</returns>
-        public int queryWorld(string worldName)
+        public static int queryWorld(string worldName)
         {
             int id = 0;
-            SqlDataReader rd = this.CreateConnection($"SELECT Id FROM WORLD where Name = {AddQuote(worldName)}");
+            SqlDataReader rd = Query($"SELECT Id FROM WORLD where Name = {AddQuote(worldName)}");
 
 
             while (rd.Read() == true)
@@ -100,17 +85,17 @@ namespace RPG_Project.Code.Logic.SQLcontroller
             }
             rd.Close();
 
-            this.CloseConnection();
+            //this.CloseConnection();
             return id;
         }
         /// <summary>
         /// SQL query for User table
         /// </summary>
         /// <returns>List of UserModel object, they represent every record in table</returns>
-        public List<UserModel> queryUser() 
+        public static List<UserModel> queryUser() 
         {
             List<UserModel> list = new List<UserModel>();
-            SqlDataReader rd = this.CreateConnection("SELECT * FROM USER");
+            SqlDataReader rd = Query("SELECT * FROM USER");
 
             var type = typeof(UserModel);
 
@@ -124,17 +109,17 @@ namespace RPG_Project.Code.Logic.SQLcontroller
             }
             rd.Close();
 
-            this.CloseConnection();
+            //this.CloseConnection();
             return list;
         }
         /// <summary>
         /// SQL query to monster table
         /// </summary>
         /// <returns>List of all monsters</returns>
-        public List<MonsterModel> queryMonster() 
+        public static List<MonsterModel> queryMonster() 
         {
             List<MonsterModel> list = new List<MonsterModel>();
-            SqlDataReader rd = this.CreateConnection("SELECT * FROM MONSTERS");
+            SqlDataReader rd = Query("SELECT * FROM MONSTERS");
 
             var type = typeof(MonsterModel);
 
@@ -155,17 +140,17 @@ namespace RPG_Project.Code.Logic.SQLcontroller
             }
             rd.Close();
 
-            this.CloseConnection();
+            //this.CloseConnection();
             return list;
         }
         /// <summary>
         /// SQL query to location table
         /// </summary>
         /// <returns>List of LocationModel object</returns>
-        public List<LocationModel> queryLocation() 
+        public static List<LocationModel> queryLocation() 
         {
             List<LocationModel> list = new List<LocationModel>();
-            SqlDataReader rd = this.CreateConnection("SELECT * FROM LOCATION");
+            SqlDataReader rd = Query("SELECT * FROM LOCATION");
 
             var type = typeof(LocationModel);
 
@@ -179,7 +164,7 @@ namespace RPG_Project.Code.Logic.SQLcontroller
             }
             rd.Close();
 
-            this.CloseConnection();
+            //this.CloseConnection();
             return list;
         }
         /// <summary>
@@ -187,10 +172,10 @@ namespace RPG_Project.Code.Logic.SQLcontroller
         /// </summary>
         /// <param name="WorldID">ID of the world</param>
         /// <returns>returns List of location correseponding to WorldID param</returns>
-        public List<LocationModel> queryLocation(int WorldID)
+        public static List<LocationModel> queryLocation(int WorldID)
         {
             List<LocationModel> list = new List<LocationModel>();
-            SqlDataReader rd = this.CreateConnection("SELECT * FROM LOCATION where WORLDID = " + WorldID);
+            SqlDataReader rd = Query("SELECT * FROM LOCATION where WORLDID = " + WorldID);
 
             var type = typeof(LocationModel);
 
@@ -206,17 +191,17 @@ namespace RPG_Project.Code.Logic.SQLcontroller
             }
             rd.Close();
 
-            this.CloseConnection();
+            //this.CloseConnection();
             return list;
         }
         /// <summary>
         /// Queries all items in database
         /// </summary>
         /// <returns>List of ItemsModel objects</returns>
-        public List<ItemsModel> queryItems() 
+        public static List<ItemsModel> queryItems() 
         {
             List<ItemsModel> list = new List<ItemsModel>();
-            SqlDataReader rd = this.CreateConnection("SELECT * FROM ITEMS");
+            SqlDataReader rd = Query("SELECT * FROM ITEMS");
 
             var type = typeof(ItemsModel);
 
@@ -244,17 +229,17 @@ namespace RPG_Project.Code.Logic.SQLcontroller
             }
             rd.Close();
 
-            this.CloseConnection();
+            //this.CloseConnection();
             return list;
         }
         /// <summary>
         /// Queries for all characters in database
         /// </summary>
         /// <returns>List of CharacterModel objects</returns>
-        public List<CharacterModel> queryCharacters()
+        public static List<CharacterModel> queryCharacters()
         {
             List<CharacterModel> list = new List<CharacterModel>();
-            SqlDataReader rd = this.CreateConnection("SELECT * FROM CHARACTERS");
+            SqlDataReader rd = Query("SELECT * FROM CHARACTERS");
 
             var type = typeof(CharacterModel);
 
@@ -282,7 +267,7 @@ namespace RPG_Project.Code.Logic.SQLcontroller
             }
             rd.Close();
 
-            this.CloseConnection();
+            //this.CloseConnection();
             return list;
         }
         /// <summary>
@@ -290,10 +275,10 @@ namespace RPG_Project.Code.Logic.SQLcontroller
         /// </summary>
         /// <param name="CharName">Character name</param>
         /// <returns>List of CharacterModel object</returns>
-        public List<CharacterModel> queryCharacters(string CharName)
+        public static List<CharacterModel> queryCharacters(string CharName)
         {
             List<CharacterModel> list = new List<CharacterModel>();
-            SqlDataReader rd = this.CreateConnection($"SELECT * FROM CHARACTERS WHERE name = {AddQuote(CharName)}");
+            SqlDataReader rd = Query($"SELECT * FROM CHARACTERS WHERE name = {AddQuote(CharName)}");
 
             var type = typeof(CharacterModel);
 
@@ -321,14 +306,14 @@ namespace RPG_Project.Code.Logic.SQLcontroller
             }
             rd.Close();
 
-            this.CloseConnection();
+            //this.CloseConnection();
             return list;
         }
 
-        public CharacterModel queryCharacters(int ID)
+        public static CharacterModel queryCharacters(int ID)
         {
             //List<CharacterModel> list = new List<CharacterModel>();
-            SqlDataReader rd = this.CreateConnection($"SELECT * FROM CHARACTERS WHERE id = {ID}");
+            SqlDataReader rd = Query($"SELECT * FROM CHARACTERS WHERE id = {ID}");
 
             var type = typeof(CharacterModel);
 
@@ -355,13 +340,13 @@ namespace RPG_Project.Code.Logic.SQLcontroller
             //}
             rd.Close();
 
-            this.CloseConnection();
+            //this.CloseConnection();
             return obj;
         }
 
-        public bool isInCharacters(string CharName) 
+        public static bool isInCharacters(string CharName) 
         {
-            SqlDataReader rd = this.CreateConnection($"SELECT Name FROM CHARACTERS WHERE name = {AddQuote(CharName)}");
+            SqlDataReader rd = Query($"SELECT Name FROM CHARACTERS WHERE name = {AddQuote(CharName)}");
             string control = "";
             while(rd.Read() == true) 
             {
@@ -381,10 +366,10 @@ namespace RPG_Project.Code.Logic.SQLcontroller
         /// Quries for all classes in databse
         /// </summary>
         /// <returns>List of ClassModel objects</returns>
-        public List<ClassModel> queryClass()
+        public static  List<ClassModel> queryClass()
         {
             List<ClassModel> list = new List<ClassModel>();
-            SqlDataReader rd = this.CreateConnection("SELECT * FROM CLASS");
+            SqlDataReader rd = Query("SELECT * FROM CLASS");
 
             var type = typeof(ClassModel);
 
@@ -398,7 +383,7 @@ namespace RPG_Project.Code.Logic.SQLcontroller
             }
             rd.Close();
 
-            this.CloseConnection();
+            //this.CloseConnection();
             return list;
         }
         /// <summary>
@@ -406,10 +391,10 @@ namespace RPG_Project.Code.Logic.SQLcontroller
         /// </summary>
         /// <param name="ClassName">Class Name</param>
         /// <returns>ClassID</returns>
-        public int queryClass(string ClassName)
+        public static int queryClass(string ClassName)
         {
             List<ClassModel> list = new List<ClassModel>();
-            SqlDataReader rd = this.CreateConnection($"SELECT ID FROM CLASS where ClassName = {AddQuote(ClassName)}");
+            SqlDataReader rd = Query($"SELECT ID FROM CLASS where ClassName = {AddQuote(ClassName)}");
 
             var type = typeof(ClassModel);
 
@@ -419,7 +404,7 @@ namespace RPG_Project.Code.Logic.SQLcontroller
             
             rd.Close();
 
-            this.CloseConnection();
+            //this.CloseConnection();
             if(ID == null) { ID = 0; };
             return ID;
         }
@@ -428,10 +413,10 @@ namespace RPG_Project.Code.Logic.SQLcontroller
         /// </summary>
         /// <param name="ID">Class ID</param>
         /// <returns>List of Class model objects</returns>
-        public List<ClassModel> queryClass(int ID)
+        public static List<ClassModel> queryClass(int ID)
         {
             List<ClassModel> list = new List<ClassModel>();
-            SqlDataReader rd = this.CreateConnection($"SELECT * FROM CLASS where ID = {ID}");
+            SqlDataReader rd = Query($"SELECT * FROM CLASS where ID = {ID}");
 
             var type = typeof(ClassModel);
 
@@ -445,14 +430,14 @@ namespace RPG_Project.Code.Logic.SQLcontroller
             }
             rd.Close();
 
-            this.CloseConnection();
+            //this.CloseConnection();
             return list;
         }
 
-        public List<ItemTemplateModel> queryTemplate() 
+        public static List<ItemTemplateModel> queryTemplate() 
         {
             List<ItemTemplateModel> list = new List<ItemTemplateModel>();
-            SqlDataReader rd = this.CreateConnection($"SELECT * FROM ItemTemplateModel");
+            SqlDataReader rd = Query($"SELECT * FROM ItemTemplateModel");
 
             var type = typeof(ItemTemplateModel);
 
@@ -466,13 +451,13 @@ namespace RPG_Project.Code.Logic.SQLcontroller
             }
             rd.Close();
 
-            this.CloseConnection();
+            //this.CloseConnection();
             return list;
         }
-        public ItemTemplateModel queryTemplate(int ID) 
+        public static ItemTemplateModel queryTemplate(int ID) 
         {
             string query = $"SELECT * FROM ItemTemplates WHERE ID = {ID}";
-            SqlDataReader rd = this.CreateConnection(query);
+            SqlDataReader rd = Query(query);
             var type = typeof(ItemTemplateModel);
             ItemTemplateModel obj = (ItemTemplateModel)Activator.CreateInstance(type);
             rd.Read();
@@ -486,60 +471,60 @@ namespace RPG_Project.Code.Logic.SQLcontroller
         /// Appends character model to the table, All the parameteres needs to be added(model parameters)
         /// </summary>
         /// <param name="model">CharacterModel object</param>
-        public void AppendRecordToTable(CharacterModel model) 
+        public static void AppendRecordToTable(CharacterModel model) 
         {
             string query = "INSERT INTO Characters (Name, PlayerID, ClassID, Money, Level, EXP, HP, Endurance, Intelligence, " +
                 "Strength, Dexterity, Description)" +
                 $"VALUES({AddQuote(model.name)},{model.PlayerID},{model.ClassID},{model.Money},{model.Level},{model.EXP},{model.HP},{model.Endurance}," +
                 $"{model.Intelligence},{model.Strength},{model.Dexterity},{AddQuote(model.Description)})";
-            SqlDataReader rd = this.CreateConnection(query);
-            this.CloseConnection();
+            SqlDataReader rd = Query(query);
+            //this.CloseConnection();
         }
         /// <summary>
         /// Appends Item model to the table, All the model parameters must be added
         /// </summary>
         /// <param name="model">ItemsModel object</param>
-        public void AppendRecordToTable(ItemsModel model)
+        public static void AppendRecordToTable(ItemsModel model)
         {
             string query = "INSERT INTO Items (Name, ItemType, AvgDMG, dmgRangePercentage,Endurance, Strength, Intelligence, Dexterity, Description, minLvl, " +
                 "Armor, Class1, Class2, Class3,SpawnLocation1, SpawnLocation2, SpawnLocation 3)" +
                 $"VALUES({AddQuote(model.name)},{model.ItemType},{model.AvgDMG},{model.dmgRangePercentage},{model.Endurance},{model.Strength},{model.Intelligence},{model.Dexterity},{model.Description}," +
                 $"{model.minLvl},{model.Armor},{model.Class1},{model.Class2},{model.Class3},{model.SpawnLocation1},{model.SpawnLocation2},{model.SpawnLocation3})";
-            SqlDataReader rd = this.CreateConnection(query);
-            this.CloseConnection();
+            SqlDataReader rd = Query(query);
+            //this.CloseConnection();
         }
         /// <summary>
         /// Appends monster to the table, all the model parameters needs to be filled
         /// </summary>
         /// <param name="model">MonsterModel object</param>
-        public void AppendRecordToTable(MonsterModel model)
+        public static void AppendRecordToTable(MonsterModel model)
         {
             string query = "INSERT INTO Monsters (Name, Class, SpawnLocation1, SpawnLocation2, SpawnLocation3, Endurance,Strength, Intelligence, Dexterity, Experience, " +
                 "WorldSpawn)" +
                 $"VALUES({AddQuote(model.Name)},{model.Class.ToString()},{model.SpawnLocation1},{model.SpawnLocation2},{model.SpawnLocation3},{model.Endurance},{model.Strength},{model.Intelligence}," +
                 $"{model.Dexterity},{model.Experience},{model.WorldSpawn})";
-            SqlDataReader rd = this.CreateConnection(query);
-            this.CloseConnection();
+            SqlDataReader rd = Query(query);
+            //this.CloseConnection();
         }
         /// <summary>
         /// Appends ItemTemplateModel to database
         /// </summary>
         /// <param name="model">ItemTemplateModel object</param>
-        public void AppendRecordToTable(ItemTemplateModel model) 
+        public static void AppendRecordToTable(ItemTemplateModel model) 
         {
             string query = $"INSERT INTO ItemTemplates (ItemName, ItemType) VALUES({AddQuote(model.Name)},{model.ItemType})";
-            SqlDataReader rd = this.CreateConnection(query);
-            this.CloseConnection();
+            SqlDataReader rd = Query(query);
+            //this.CloseConnection();
         }
 
-        public void AppendRecordToTable(List<ItemTemplateModel> list)
+        public static void AppendRecordToTable(List<ItemTemplateModel> list)
         {
             foreach (ItemTemplateModel model in list)
             {
                 string query = $"INSERT INTO ItemTemplates (ItemName, ItemType) VALUES({AddQuote(model.Name)},{model.ItemType})";
-                SqlDataReader rd = this.CreateConnection(query);
+                SqlDataReader rd = Query(query);
             }
-            this.CloseConnection();
+            //this.CloseConnection();
         }
     }
 }

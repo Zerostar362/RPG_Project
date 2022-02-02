@@ -19,6 +19,7 @@ using RPG_Project.Code.Logic.Session;
 using RPG_Project.GameData.Creation;
 using RPG_Project.Init;
 using RPG_Project.GameData.Visuals.Shop;
+using RPG_Project.Code.Logic.SQLcontroller;
 
 namespace RPG_Project
 {
@@ -34,6 +35,7 @@ namespace RPG_Project
             //test purposes
             MainFrame.Navigate(new ChooseChar());
             CurrentSession.CharacterID = 1;
+            SQLController.CreateConnection();
         }
 
         private void openChaCr_Click_Button(object sender, RoutedEventArgs e) 
@@ -43,6 +45,7 @@ namespace RPG_Project
 
         private void OnClick_ExitButton(object sender, RoutedEventArgs e) 
         {
+            SQLController.CloseConnection();
             Application.Current.Shutdown();
         }
 

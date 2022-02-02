@@ -16,8 +16,8 @@ namespace RPG_Project.Code.Logic.Session
 
         internal static void updateCurrentCharacter(int ID) 
         {
-            SQLcontroller.SQLController sql = new SQLcontroller.SQLController();
-            CharacterModel model = sql.queryCharacters(ID);
+            //SQLcontroller.SQLController sql = new SQLcontroller.SQLController();
+            CharacterModel model = SQLcontroller.SQLController.queryCharacters(ID);
             CurrentCharacter.ID = model.id;
             CurrentCharacter.Name = model.name;
             CurrentCharacter.Level = model.Level;

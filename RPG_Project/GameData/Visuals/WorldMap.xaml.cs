@@ -41,9 +41,9 @@ namespace RPG_Project.GameData.Visuals
 
         private void LoadUpButtons() 
         {
-            SQLController sql = new SQLController();
+            //SQLController sql = new SQLController();
 
-            List<WorldModel> list = sql.queryWorld();
+            List<WorldModel> list = SQLController.queryWorld();
 
             foreach (WorldModel model in list) 
             {
