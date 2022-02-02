@@ -18,6 +18,7 @@ using RPG_Project.GameData.Visuals;
 using RPG_Project.Code.Logic.Session;
 using RPG_Project.GameData.Creation;
 using RPG_Project.Init;
+using RPG_Project.GameData.Visuals.Shop;
 
 namespace RPG_Project
 {
@@ -57,7 +58,12 @@ namespace RPG_Project
             MainFrame.Navigate(new WorldMap());
         }
 
-        private void generateItemTemplates_buttonClick(object sende, RoutedEventArgs e) 
+        private void onClick_Shop(object sender, RoutedEventArgs e) 
+        {
+            MainFrame.Navigate(new ShopMainPage());
+        }
+
+        private void generateItemTemplates_buttonClick(object sender, RoutedEventArgs e) 
         {
             ItemTemplatesGen gen = new ItemTemplatesGen();
             //gen.generateTemplate();

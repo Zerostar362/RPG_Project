@@ -50,6 +50,7 @@
             <Button
                 Content="Shop"
                 Margin="0,5"
+                Click="onClick_Shop"
                 />
             <Button
                 Content="Save"

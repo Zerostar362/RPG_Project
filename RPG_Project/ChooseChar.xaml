@@ -13,13 +13,13 @@
         <StackPanel x:Name="StackPanel_Main">
             <Grid x:Name="StackPanel_SubGrid">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50" x:Name="R0"/>
+                    <RowDefinition Height="*"  x:Name="R1"/>
+                    <RowDefinition Height="*"  x:Name="R2"/>
+                    <RowDefinition Height="*"  x:Name="R3"/>
+                    <RowDefinition Height="*"  x:Name="R4"/>
+                    <RowDefinition Height="*"  x:Name="R5"/>
+                    <RowDefinition Height="*"  x:Name="R6"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -32,6 +32,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>

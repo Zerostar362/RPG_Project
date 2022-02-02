@@ -325,6 +325,40 @@ namespace RPG_Project.Code.Logic.SQLcontroller
             return list;
         }
 
+        public CharacterModel queryCharacters(int ID)
+        {
+            //List<CharacterModel> list = new List<CharacterModel>();
+            SqlDataReader rd = this.CreateConnection($"SELECT * FROM CHARACTERS WHERE id = {ID}");
+
+            var type = typeof(CharacterModel);
+
+            rd.Read();
+                CharacterModel obj = (CharacterModel)Activator.CreateInstance(type);
+                obj.id = Convert.ToInt32(rd["id"]);
+                obj.name = Convert.ToString(rd["Name"]);
+                obj.PlayerID = Convert.ToInt32(rd["PlayerID"]);
+                obj.ClassID = Convert.ToInt32(rd["ClassID"]);
+                obj.Money = Convert.ToInt32(rd["Money"]);
+                obj.Level = Convert.ToInt32(rd["Level"]);
+                obj.EXP = Convert.ToInt32(rd["EXP"]);
+                obj.HP = Convert.ToInt32(rd["HP"]);
+                obj.Intelligence = Convert.ToInt32(rd["Intelligence"]);
+                obj.Strength = Convert.ToInt32(rd["Strength"]);
+                obj.Dexterity = Convert.ToInt32(rd["Dexterity"]);
+                obj.Description = Convert.ToString(rd["Description"]);
+                obj.Helmet = Convert.ToInt32(rd["Helmet"]);
+                obj.Torso = Convert.ToInt32(rd["Torso"]);
+                obj.Legs = Convert.ToInt32(rd["Legs"]);
+                obj.Boots = Convert.ToInt32(rd["boots"]);
+                obj.Weapon = Convert.ToInt32(rd["Weapon"]);
+                //list.Add(obj);
+            //}
+            rd.Close();
+
+            this.CloseConnection();
+            return obj;
+        }
+
         public bool isInCharacters(string CharName) 
         {
             SqlDataReader rd = this.CreateConnection($"SELECT Name FROM CHARACTERS WHERE name = {AddQuote(CharName)}");
@@ -441,6 +475,7 @@ namespace RPG_Project.Code.Logic.SQLcontroller
             SqlDataReader rd = this.CreateConnection(query);
             var type = typeof(ItemTemplateModel);
             ItemTemplateModel obj = (ItemTemplateModel)Activator.CreateInstance(type);
+            rd.Read();
             obj.ID = Convert.ToInt32(rd["ID"]);
             obj.Name = Convert.ToString(rd["ItemName"]);
             obj.ItemType = Convert.ToInt32(rd["ItemType"]);

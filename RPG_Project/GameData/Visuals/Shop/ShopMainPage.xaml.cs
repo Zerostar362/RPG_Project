@@ -26,12 +26,15 @@ namespace RPG_Project.GameData.Visuals.Shop
         Random rng;
         public ShopMainPage()
         {
+            rng = new Random();
             sql = new SQLController();
             InitializeComponent();
             for (int i = 0; i < 6; i++)
             {
                 Button btn = new Button();
                 btn.Content = getRandomItem();
+                Grid.SetColumn(btn, i);
+                ShopGrid.Children.Add(btn);
             }
         }
 
@@ -40,7 +43,7 @@ namespace RPG_Project.GameData.Visuals.Shop
             ItemTemplateModel itemTemplate = new ItemTemplateModel();
             itemTemplate = sql.queryTemplate(rng.Next(1, 50));
             ItemsModel items = new ItemsModel();
-            return " ";
+            return itemTemplate.Name;
         }
     }
 }
